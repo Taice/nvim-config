@@ -4,7 +4,7 @@ return {
 	dependencies = {
 		"hrsh7th/cmp-nvim-lsp",
 		{ "antosha417/nvim-lsp-file-operations", config = true },
-		{ "folke/neodev.nvim", opts = {} },
+		{ "folke/neodev.nvim",                   opts = {} },
 	},
 	config = function()
 		-- import lspconfig plugin
@@ -48,7 +48,7 @@ return {
 				keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts) -- smart rename
 
 				opts.desc = "Show buffer diagnostics"
-				keymap.set("n", "<leader>D", "<cmd>Telescope diagnostics bufnr=0<CR>", opts) -- show  diagnostics for file
+				keymap.set("n", "<leader>D", "<cmd>Telescope diagnostics bufnr=0<CR>", opts) -- show diagnostics for file
 
 				opts.desc = "Show line diagnostics"
 				keymap.set("n", "<leader>d", vim.diagnostic.open_float, opts) -- show diagnostics for line
@@ -103,11 +103,32 @@ return {
 					},
 				})
 			end,
-            ["clangd"] = function()
-                lspconfig["clangd"].setup({
-                    capabilities = capabilities
-                })
-            end
+
+			["clangd"] = function()
+				lspconfig["clangd"].setup({
+					capabilities = capabilities
+				})
+			end,
+
+			-- Add support for rust_analyzer
+			["rust_analyzer"] = function()
+				lspconfig["rust_analyzer"].setup({
+					capabilities = capabilities,
+					settings = {
+						["rust-analyzer"] = {
+							cargo = {
+								allFeatures = true,
+							},
+							procMacro = {
+								enable = true,
+							},
+							checkOnSave = {
+								command = "clippy",
+							},
+						},
+					},
+				})
+			end
 		})
 	end,
 }

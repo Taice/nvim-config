@@ -37,7 +37,6 @@ return {
 					 },
 					 command = "clang-format",
 					 args = {
-						 "--style=file:/home/tai/.config/nvim/lua/.clang-format",
 						 "-assume-filename",
 						 "$FILENAME",
 					 },
@@ -45,7 +44,6 @@ return {
 						 local start_offset, end_offset = util.get_offsets_from_range(ctx.buf, ctx.range)
 						 local length = end_offset - start_offset
 						 return {
-							 "--style=file:/home/tai/.config/nvim/lua/.clang-format",
 							 "-assume-filename",
 							 "$FILENAME",
 							 "--offset",
